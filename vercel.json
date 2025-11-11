@@ -2,5 +2,11 @@
   "buildCommand": "yarn workspace demo-wallet-shared build && yarn workspace demo-wallet-client build",
   "outputDirectory": "packages/demo-wallet-client/build",
   "installCommand": "yarn install",
-  "framework": null
+  "framework": null,
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
 }
