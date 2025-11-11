@@ -21,9 +21,8 @@ export const sendFromClassicAccount = async (
   networkPassphrase: string,
 ) => {
   const memo = createMemoFromType(
-    transactionJson.transaction.withdraw_memo ||
-      transactionJson.transaction.rozo.source_memo,
-    transactionJson.transaction.withdraw_memo_type || "text",
+    transactionJson.transaction.withdraw_memo,
+    transactionJson.transaction.withdraw_memo_type,
   );
 
   log.request({
