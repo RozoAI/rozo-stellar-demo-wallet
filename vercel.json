@@ -1,0 +1,7 @@
+{
+  "buildCommand": "yarn build",
+  "outputDirectory": "packages/demo-wallet-client/build",
+  "installCommand": "yarn install",
+  "framework": null,
+  "devCommand": null
+}
