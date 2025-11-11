@@ -1,0 +1,13 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "target": "esnext",
+    "module": "esnext",
+    "esModuleInterop": true,
+    "moduleResolution": "bundler",
+    "sourceMap": true,
+    "outDir": "build",
+    "allowJs": true
+  },
+  "lib": ["es2015"]
+}

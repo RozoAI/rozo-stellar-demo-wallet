@@ -1,0 +1,64 @@
+import { log } from "../../helpers/log";
+
+interface PutSep12FieldsRequestProps {
+  account: string;
+  fields: any;
+  memo?: string;
+  token: string;
+  kycServer: string;
+  transactionId?: string;
+  isSender?: boolean;
+}
+
+export const putSep12FieldsRequest = async ({
+  account,
+  fields,
+  memo,
+  token,
+  kycServer,
+  transactionId,
+  isSender,
+}: PutSep12FieldsRequestProps) => {
+  const data: { [key: string]: string } = {
+    account,
+    ...(memo ? { memo, memo_type: "hash" } : {}),
+    ...(transactionId ? { transaction_id: transactionId } : {}),
+    ...fields,
+  };
+
+  log.request({ title: "PUT `/customer`", body: data });
+
+  const body = new FormData();
+  Object.entries(data).forEach(([key, value]) => {
+    body.append(key, value.toString());
+  });
+
+  const result = await fetch(`${kycServer}/customer`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    method: "PUT",
+    body,
+  });
+
+  const resultJson = await result.json();
+  if (isSender !== undefined) {
+    log.response({
+      title: `PUT \`/customer\` (${isSender ? "sender" : "receiver"})`,
+      body: resultJson,
+    });
+  } else {
+    log.response({
+      title: `PUT \`/customer\``,
+      body: resultJson,
+    });
+  }
+
+  if (result.status !== 202) {
+    throw new Error(
+      `Unexpected status for PUT \`/customer\` request: ${result.status}`,
+    );
+  }
+
+  return resultJson;
+};
