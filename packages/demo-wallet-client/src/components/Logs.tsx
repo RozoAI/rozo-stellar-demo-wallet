@@ -1,12 +1,12 @@
+import { Layout, TextLink } from "@stellar/design-system";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { Layout, TextLink } from "@stellar/design-system";
 
 import { LogItem } from "components/LogItem";
-import { LOG_MESSAGE_EVENT } from "demo-wallet-shared/build/constants/settings";
-import { clearLogsAction, addLogAction } from "ducks/logs";
-import { useRedux } from "hooks/useRedux";
 import { AppDispatch } from "config/store";
+import { LOG_MESSAGE_EVENT } from "demo-wallet-shared/build/constants/settings";
+import { addLogAction, clearLogsAction } from "ducks/logs";
+import { useRedux } from "hooks/useRedux";
 import { LogItemProps } from "types/types";
 
 export const Logs = () => {
@@ -36,7 +36,7 @@ export const Logs = () => {
   }, [dispatch]);
 
   const logsToMarkdown = (logItems: LogItemProps[]) => {
-    const heading = `# Stellar Demo Wallet logs\n\n`;
+    const heading = `# Stellar Rozo Demo Wallet logs\n\n`;
     const date = `${new Date()}\n\n`;
     const url = `[URL](${window.location.toString()})\n\n`;
     const divider = `---\n\n`;

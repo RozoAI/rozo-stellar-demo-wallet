@@ -1,22 +1,24 @@
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
 import {
   Button,
-  TextLink,
+  CopyText,
   Icon,
   InfoBlock,
   Modal,
-  CopyText,
+  TextLink,
 } from "@stellar/design-system";
 import { resetStoreAction } from "config/store";
 import { getCurrentSessionParams } from "demo-wallet-shared/build/helpers/getCurrentSessionParams";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { SearchParams, StringObject } from "types/types";
 import { contractAccountSelector } from "../ducks/contractAccount";
 
 export const SignOutModal = ({ onClose }: { onClose: () => void }) => {
   const [sessionParams, setSessionParams] = useState<SearchParams[]>([]);
-  const { isAuthenticated: isContractAuthenticated } = useSelector(contractAccountSelector);
+  const { isAuthenticated: isContractAuthenticated } = useSelector(
+    contractAccountSelector,
+  );
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -43,7 +45,7 @@ export const SignOutModal = ({ onClose }: { onClose: () => void }) => {
     return sessionParams.map((s) => paramText[s]).join(", ");
   };
 
-  const accountSignOutBody =
+  const accountSignOutBody = (
     <Modal.Body>
       <p>
         You can reload the account using your secret key or press back in your
@@ -67,16 +69,20 @@ export const SignOutModal = ({ onClose }: { onClose: () => void }) => {
         </InfoBlock>
       )}
     </Modal.Body>
+  );
 
-  const contractAccountSignOutBody =
+  const contractAccountSignOutBody = (
     <Modal.Body>
-      <p>Thanks for using the Demo Wallet contract account.</p>
+      <p>Thanks for using the Rozo Demo Wallet contract account.</p>
       <p>You can use the same passkey to sign back in.</p>
     </Modal.Body>
+  );
 
   return (
     <>
-      { isContractAuthenticated ? contractAccountSignOutBody : accountSignOutBody }
+      {isContractAuthenticated
+        ? contractAccountSignOutBody
+        : accountSignOutBody}
       <Modal.Footer>
         <Button onClick={handleSignOut}>Sign out</Button>
         <Button variant={Button.variant.secondary} onClick={onClose}>

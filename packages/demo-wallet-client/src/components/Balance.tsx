@@ -1,22 +1,22 @@
-import { useDispatch } from "react-redux";
 import { TextLink } from "@stellar/design-system";
+import { useDispatch } from "react-redux";
 
 import { BalanceRow } from "components/BalanceRow";
+import { AppDispatch } from "config/store";
+import { isNativeAsset } from "demo-wallet-shared/build/helpers/isNativeAsset";
+import { depositAssetAction } from "ducks/sep24DepositAsset";
+import { withdrawAssetAction } from "ducks/sep24WithdrawAsset";
+import { initiateSendAction } from "ducks/sep31Send";
 import { initiateDepositAction as initiateSep6SendAction } from "ducks/sep6Deposit";
 import { initiateWithdrawAction as initiateSep6WithdrawAction } from "ducks/sep6Withdraw";
 import { initiateSep8SendAction } from "ducks/sep8Send";
-import { depositAssetAction } from "ducks/sep24DepositAsset";
-import { initiateSendAction } from "ducks/sep31Send";
-import { withdrawAssetAction } from "ducks/sep24WithdrawAsset";
-import { isNativeAsset } from "demo-wallet-shared/build/helpers/isNativeAsset";
 import { useRedux } from "hooks/useRedux";
-import { AppDispatch } from "config/store";
 import {
   Asset,
-  AssetActionItem,
   AssetActionId,
-  AssetType,
+  AssetActionItem,
   AssetCategory,
+  AssetType,
 } from "types/types";
 
 interface SortedBalancesResult {
@@ -187,7 +187,7 @@ export const Balance = ({
       case AssetActionId.SEP31_SEND: {
         let description = `Start SEP-31 send to ${balance.assetCode}?\n\n`;
         description +=
-          "Please be aware that specifically in the case of demo-ing SEP-31 in the Demo Wallet the public and secret keys don't represent the Sending Client but instead the Sending Anchor's account.\n\n";
+          "Please be aware that specifically in the case of demo-ing SEP-31 in the Rozo Demo Wallet the public and secret keys don't represent the Sending Client but instead the Sending Anchor's account.\n\n";
         description +=
           "In SEP-31, the only Stellar transaction happening is between the Sending and the Receiving anchors.";
         props = {

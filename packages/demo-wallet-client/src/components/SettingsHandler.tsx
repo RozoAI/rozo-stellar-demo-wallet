@@ -1,19 +1,17 @@
-import React, { useEffect } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
 import { Keypair } from "@stellar/stellar-sdk";
+import { AppDispatch } from "config/store";
+import { getErrorMessage } from "demo-wallet-shared/build/helpers/getErrorMessage";
+import { log } from "demo-wallet-shared/build/helpers/log";
 import { fetchAccountAction } from "ducks/account";
 import { fetchClaimableBalancesAction } from "ducks/claimableBalances";
 import { updateSettingsAction } from "ducks/settings";
-import { getErrorMessage } from "demo-wallet-shared/build/helpers/getErrorMessage";
-import { log } from "demo-wallet-shared/build/helpers/log";
 import { useRedux } from "hooks/useRedux";
-import { AppDispatch } from "config/store";
+import React, { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { useLocation, useNavigate } from "react-router-dom";
 import { ActionStatus, SearchParams } from "types/types";
 import { fetchContractAccountAction } from "../ducks/contractAccount";
-import {
-  fetchContractAssetsAction,
-} from "../ducks/contractAssets";
+import { fetchContractAssetsAction } from "../ducks/contractAssets";
 
 export const SettingsHandler = ({
   children,
@@ -63,7 +61,7 @@ export const SettingsHandler = ({
   }, [untrustedAssetsParam, dispatch]);
 
   // Set secret key param (secretKey=[SECRET_KEY]) and fetch account info
-  // This will handle both: secret key submitted on Demo Wallet and directly
+  // This will handle both: secret key submitted on Rozo Demo Wallet and directly
   // from the URL
   useEffect(() => {
     dispatch(
@@ -107,14 +105,24 @@ export const SettingsHandler = ({
 
   // Go to /account page if fetching account was success
   useEffect(() => {
-    if ((account.status === ActionStatus.SUCCESS && account.isAuthenticated) ||
-      (contractAccount.status === ActionStatus.SUCCESS && contractAccount.isAuthenticated)) {
+    if (
+      (account.status === ActionStatus.SUCCESS && account.isAuthenticated) ||
+      (contractAccount.status === ActionStatus.SUCCESS &&
+        contractAccount.isAuthenticated)
+    ) {
       navigate({
         pathname: "/account",
         search: location.search,
       });
     }
-  }, [account.status, location.search, account.isAuthenticated, navigate, contractAccount.status, contractAccount.isAuthenticated]);
+  }, [
+    account.status,
+    location.search,
+    account.isAuthenticated,
+    navigate,
+    contractAccount.status,
+    contractAccount.isAuthenticated,
+  ]);
 
   // Handle contract ID from URL
   useEffect(() => {

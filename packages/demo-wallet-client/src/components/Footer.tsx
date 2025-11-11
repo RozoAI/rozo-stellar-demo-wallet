@@ -1,9 +1,8 @@
-import { useState } from "react";
-import { TextLink, Layout, Modal } from "@stellar/design-system";
+import { Layout, Modal, TextLink } from "@stellar/design-system";
 import { ConfigurationModal } from "components/ConfigurationModal";
 import { CSS_MODAL_PARENT_ID } from "demo-wallet-shared/build/constants/settings";
 import { useRedux } from "hooks/useRedux";
-import { gitInfo } from "../generated/gitInfo";
+import { useState } from "react";
 
 export const Footer = () => {
   const [configModalVisible, setConfigModalVisible] = useState(false);
@@ -16,15 +15,39 @@ export const Footer = () => {
 
   return (
     <>
-      <Layout.Footer
-        gitHubLink="https://github.com/stellar/stellar-demo-wallet"
-        hideTopBorder
-      >
-        {gitInfo?.commitHash ? (
+      <Layout.Footer hideLegalLinks>
+        <div className="Footer__links">
+          <TextLink
+            href="https://bridge.rozo.ai/faq"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{ color: "var(--pal-text-secondary)" }}
+          >
+            FAQ
+          </TextLink>
+          <TextLink
+            href="https://bridge.rozo.ai/terms"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{ color: "var(--pal-text-secondary)" }}
+          >
+            Terms of Use
+          </TextLink>
+          <TextLink
+            href="https://bridge.rozo.ai/privacy"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{ color: "var(--pal-text-secondary)" }}
+          >
+            Privacy Policy
+          </TextLink>
+        </div>
+
+        {/* {gitInfo?.commitHash ? (
           <div className="Footer__commitHash">{`Commit hash: ${gitInfo.commitHash}`}</div>
-        ) : null}
+        ) : null} */}
         {account.isAuthenticated && (
-          <div>
+          <div style={{ marginLeft: "auto" }}>
             <TextLink onClick={() => setConfigModalVisible(true)}>
               Configuration
             </TextLink>
