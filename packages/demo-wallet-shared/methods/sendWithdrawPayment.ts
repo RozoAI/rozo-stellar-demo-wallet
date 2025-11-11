@@ -2,13 +2,15 @@ import {
   Account,
   Asset,
   Horizon,
-  Keypair, MuxedAccount, Operation,
+  Keypair,
+  MuxedAccount,
+  Operation,
   TransactionBuilder,
 } from "@stellar/stellar-sdk";
-import { createMemoFromType } from "./createMemoFromType";
-import { log } from "../helpers/log";
 import { getNetworkConfig } from "../helpers/getNetworkConfig";
+import { log } from "../helpers/log";
 import { SmartWalletService } from "../services/SmartWalletService";
+import { createMemoFromType } from "./createMemoFromType";
 
 export const sendFromClassicAccount = async (
   amount: string,
@@ -17,10 +19,11 @@ export const sendFromClassicAccount = async (
   server: Horizon.Server,
   paymentAsset: Asset,
   networkPassphrase: string,
-)  => {
+) => {
   const memo = createMemoFromType(
-    transactionJson.transaction.withdraw_memo,
-    transactionJson.transaction.withdraw_memo_type,
+    transactionJson.transaction.withdraw_memo ||
+      transactionJson.transaction.rozo.source_memo,
+    transactionJson.transaction.withdraw_memo_type || "text",
   );
 
   log.request({
@@ -64,7 +67,7 @@ export const sendFromClassicAccount = async (
 
   // eslint-disable-next-line no-await-in-loop
   return await server.submitTransaction(txn);
-}
+};
 
 export const sendFromContractAccount = async (
   amount: string,
@@ -75,13 +78,14 @@ export const sendFromContractAccount = async (
   server: Horizon.Server,
 ) => {
   const swService = await SmartWalletService.getInstance();
-  const memo =  transactionJson.transaction.withdraw_memo_type === "id"
-    ? transactionJson.transaction.withdraw_memo
-    : undefined;
+  const memo =
+    transactionJson.transaction.withdraw_memo_type === "id"
+      ? transactionJson.transaction.withdraw_memo
+      : undefined;
 
   let destAddress = toAcc;
   if (memo != null) {
-    const toAccount = await server.loadAccount(toAcc)
+    const toAccount = await server.loadAccount(toAcc);
     destAddress = new MuxedAccount(toAccount, memo).accountId();
   }
 
@@ -96,4 +100,4 @@ export const sendFromContractAccount = async (
     Number(amount),
     fromAcc,
   );
-}
+};
