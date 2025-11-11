@@ -1,0 +1,5 @@
+packages/demo-wallet-server
+packages/demo-wallet-soroban
+node_modules
+.git
+

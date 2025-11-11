@@ -1,7 +1,8 @@
 {
-  "buildCommand": "yarn build",
+  "buildCommand": "yarn workspace demo-wallet-shared build && yarn workspace demo-wallet-client build",
   "outputDirectory": "packages/demo-wallet-client/build",
   "installCommand": "yarn install",
   "framework": null,
-  "devCommand": null
+  "devCommand": null,
+  "ignoreCommand": "git diff --quiet HEAD^ HEAD ./"
 }
