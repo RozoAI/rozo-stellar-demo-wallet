@@ -15,10 +15,12 @@ export const Header = () => {
       : "https://bridge.rozo.ai/rozo-transparent.png";
   }, [isDarkMode]);
 
-  // Check initial dark mode state from body class
+  // Force light mode on initial load, ignoring system preference
   useEffect(() => {
-    const isDark = document.body.classList.contains("dark-mode");
-    setIsDarkMode(isDark);
+    // Remove dark-mode class and add light-mode class to force light mode
+    document.body.classList.remove("dark-mode");
+    document.body.classList.add("light-mode");
+    setIsDarkMode(false);
   }, []);
 
   const handleCloseModal = () => {
