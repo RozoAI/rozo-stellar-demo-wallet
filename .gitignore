@@ -35,3 +35,11 @@ yarn-error.log*
 .eslintcache
 .nvmrc
 .idea
+
+# env files (added 2026-05-25 after account-compromise incident)
+.env
+.env.local
+.env.*.local
+.env.development.local
+.env.test.local
+.env.production.local
