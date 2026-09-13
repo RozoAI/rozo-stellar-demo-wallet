@@ -12,7 +12,7 @@ jobs:
       issues: write
     steps:
       - name: Update dependencies
-        uses: imjohnbo/issue-bot@3bee265982b87e730cf6c8dab7f86b68c92f8ef1
+        uses: imjohnbo/issue-bot@b350cc62e8924da47d75d0e4c9d10cb25982f37d
         with:
           title: "Update dependencies"
           body: |
