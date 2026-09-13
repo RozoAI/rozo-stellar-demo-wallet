@@ -15,7 +15,7 @@
     "@stellar/prettier-config": "^1.2.0",
     "bignumber.js": "^9.1.1",
     "crypto": "^1.0.1",
-    "dompurify": "^3.4.14",
+    "dompurify": "^3.4.15",
     "html-react-parser": "^4.2.1",
     "lodash": "^4.18.1",
     "marked": "^7.0.3",
