@@ -273,3 +273,7 @@ but you are free to edit the compose file to use a local instance of the server.
   https://github.com/stellar/stellar-protocol/blob/master/ecosystem/sep-0031.md
 [sep-6]:
   https://github.com/stellar/stellar-protocol/blob/master/ecosystem/sep-0006.md
+
+## Secret scanning
+
+Enable the local gitleaks pre-commit hook once per clone: `brew install gitleaks pre-commit && pre-commit install` (config in `.pre-commit-config.yaml`). CI also runs a report-only scan in `.github/workflows/secret-scan.yml`.
